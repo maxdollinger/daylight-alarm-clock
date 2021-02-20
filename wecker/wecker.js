@@ -1,15 +1,34 @@
-const { currentTimeString} = require('../utils/utils');
+const alarmDB = require('../db/alarmModel');
+const led = require('../gpio/ledpwm');
 
-const alarmClock = alarm => {
-     const alarmTime = new Date(...alarm).getTime();
-     const interval = setInterval(() => {
-          if (Date.now() >= alarmTime) {
-               console.log(currentTimeString());
-          }
-          if(Date.now() >= alarmTime + 2000) {
-               clearInterval(interval);
-          }
-     }, 1000);
+const fade = (minutes) => {
+     console.log('===== started fade =====');
+
+     return new Promise(resolve => {
+          const iv = setInterval(() => {
+               led.brightness++;
+
+               if (led.brightness >= 100) {
+                    clearInterval(iv);
+                    console.log('===== finished fade =====');
+                    resolve(true);
+               }
+          }, (minutes * 60 * 10))
+     })
 }
 
-module.exports = alarmClock;
+const alarm = () => {
+     const fadeTime = alarmDB.getAlarmTime() - (1000 * 60 * 20);
+     if (alarmDB.status === 'on' && fadeTime <= Date.now()) {
+          alarmDB.status = 'off';
+          return true;
+     } else {
+          return false;
+     }
+}
+
+const clock = setInterval(() => {
+     if(alarm()) fade(1);
+}, 5000);
+
+module.exports = clock;

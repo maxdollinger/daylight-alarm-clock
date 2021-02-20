@@ -1,13 +1,29 @@
-// const getAlarms = () => {
-//      return new Promise((resolve, reject) => {
-//           db.all('SELECT * FROM Alarms', (err, rows) => {
-//                if (err) reject(err);
+const alarm = require('../db/alarmModel');
 
-//                rows.forEach( row => {
-//                     row.repeat = JSON.parse(row.repeat);
-//                });
+const createAlarm = (timeArr, fade) => {
+     alarm.time = timeArr;
+     alarm.fade = fade || 20;
+     alarm.status = 'on';
+     console.log(alarm);
+};
 
-//                resolve(rows)
-//           })
-//      })
-// }
+const deactivateAlarm = () => {
+     alarm.status = 'off';
+     console.log(alarm);
+};
+
+const activateAlarm = () => {
+     alarm.status = 'on';
+     console.log(alarm);
+}
+
+module.exports = {
+     set: createAlarm,
+     on: activateAlarm,
+     off: deactivateAlarm,
+     getAlarm: () => ({ ...alarm }),
+     getAlarmTime: () => (new Date()).setHours(...alarm.time)
+};
+
+
+

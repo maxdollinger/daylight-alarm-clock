@@ -2,7 +2,7 @@
 // const led = new Gpio(17, {mode: Gpio.OUTPUT});
 
 const led = {
-    pwmWrite: (value) => console.log(value)
+    pwmWrite: (value) => console.log('pwm value: ' + value)
 }
 
 const settings = {
