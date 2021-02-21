@@ -31,7 +31,7 @@ const dataHandler = (name, scheme) => ({
           if (scheme.hasOwnProperty(prop)) {
                const value = obj[prop];
                if (value) {
-                    return prop === 'time' ? [...value] : value;
+                    return value;
                } else {
                     return false;
                }

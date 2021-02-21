@@ -2,15 +2,18 @@ const createDB = require('./createDB');
 
 const alarmScheme = {
     time: {
-        default: [ 8, 0],
-        type: 'array',
-        size: 2,
+        default: (() => {
+            const current = Date.now()
+            const remaining5min = current % (5*60*1000);
+            return current - remaining5min;
+        })(),
+        type: 'number',
     },
     fading: {
         type: 'number',
-        default: 20,
-        min: 5,
-        max: 30,
+        default: 20*60*1000,
+        min: 5*60*1000,
+        max: 30*60*1000,
     },
     status: {
         type: 'string',
@@ -21,11 +24,30 @@ const alarmScheme = {
 
 const Alarm = createDB('alarm', alarmScheme);
 
-Alarm.getAlarmTime = function() {
-    return (new Date()).setHours(...this.time, 00)
-};
+const isTimeInPast = (time) => {
+    return (time - Alarm.fading) < Date.now()
+}
+
+Alarm.setTime = function(time) {
+    if(isTimeInPast(time)) {
+        time += 1000*60*60*24;
+    }
+    time -= time % (1000*60);
+    this.time = time;
+    this.status = 'on';
+}
+
+Alarm.shouldFadingStart = function() {
+    if (this.status === "on" && isTimeInPast(this.time)) {
+        this.status = 'off';
+        return true;
+    } else {
+        return false;
+    }
+}
 
 Alarm.on = function() {
+    this.setTime(this.time);
     this.status = 'on';
     return this.status;
 }

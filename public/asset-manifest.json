@@ -1,26 +1,18 @@
 {
-  "files": {
-    "main.css": "/static/css/main.6dea0f05.chunk.css",
-    "main.js": "/static/js/main.980cdef1.chunk.js",
-    "main.js.map": "/static/js/main.980cdef1.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.8cc82089.js",
-    "runtime-main.js.map": "/static/js/runtime-main.8cc82089.js.map",
-    "static/css/2.4ba0d58d.chunk.css": "/static/css/2.4ba0d58d.chunk.css",
-    "static/js/2.6daaeeee.chunk.js": "/static/js/2.6daaeeee.chunk.js",
-    "static/js/2.6daaeeee.chunk.js.map": "/static/js/2.6daaeeee.chunk.js.map",
-    "static/js/3.79826441.chunk.js": "/static/js/3.79826441.chunk.js",
-    "static/js/3.79826441.chunk.js.map": "/static/js/3.79826441.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/2.4ba0d58d.chunk.css.map": "/static/css/2.4ba0d58d.chunk.css.map",
-    "static/css/main.6dea0f05.chunk.css.map": "/static/css/main.6dea0f05.chunk.css.map",
-    "static/js/2.6daaeeee.chunk.js.LICENSE.txt": "/static/js/2.6daaeeee.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/static/media/roboto-vietnamese-400-normal.52cebac0.woff2"
-  },
-  "entrypoints": [
-    "static/js/runtime-main.8cc82089.js",
-    "static/css/2.4ba0d58d.chunk.css",
-    "static/js/2.6daaeeee.chunk.js",
-    "static/css/main.6dea0f05.chunk.css",
-    "static/js/main.980cdef1.chunk.js"
-  ]
+  "main.css": "/static/css/main.1654586b.chunk.css",
+  "main.js": "/static/js/main.c54a1264.chunk.js",
+  "main.js.map": "/static/js/main.c54a1264.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.6672df7f.js",
+  "runtime~main.js.map": "/static/js/runtime~main.6672df7f.js.map",
+  "static/css/2.eef8a822.chunk.css": "/static/css/2.eef8a822.chunk.css",
+  "static/js/2.c6e81f5e.chunk.js": "/static/js/2.c6e81f5e.chunk.js",
+  "static/js/2.c6e81f5e.chunk.js.map": "/static/js/2.c6e81f5e.chunk.js.map",
+  "static/js/3.169bb1ed.chunk.js": "/static/js/3.169bb1ed.chunk.js",
+  "static/js/3.169bb1ed.chunk.js.map": "/static/js/3.169bb1ed.chunk.js.map",
+  "index.html": "/index.html",
+  "precache-manifest.da6a493ae51ffb50e9c703a9bd3b4736.js": "/precache-manifest.da6a493ae51ffb50e9c703a9bd3b4736.js",
+  "service-worker.js": "/service-worker.js",
+  "static/css/2.eef8a822.chunk.css.map": "/static/css/2.eef8a822.chunk.css.map",
+  "static/css/main.1654586b.chunk.css.map": "/static/css/main.1654586b.chunk.css.map",
+  "static/media/index.css": "/static/media/roboto-vietnamese-400-normal.a8be5b46.woff2"
 }

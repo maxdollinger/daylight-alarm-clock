@@ -17,18 +17,8 @@ const fade = (minutes) => {
      })
 }
 
-const alarm = () => {
-     const fadeTime = alarmDB.getAlarmTime() - (1000 * 60 * 20);
-     if (alarmDB.status === 'on' && fadeTime <= Date.now()) {
-          alarmDB.status = 'off';
-          return true;
-     } else {
-          return false;
-     }
-}
-
 const clock = setInterval(() => {
-     if(alarm()) fade(1);
+     if(alarmDB.shouldFadingStart()) fade(1);
 }, 5000);
 
 module.exports = clock;
