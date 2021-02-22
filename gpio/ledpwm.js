@@ -1,9 +1,5 @@
-// const Gpio = require('pigpio').Gpio;
-// const led = new Gpio(17, {mode: Gpio.OUTPUT});
-
-const led = {
-    pwmWrite: (value) => console.log('pwm value: ' + value)
-}
+const Gpio = require('pigpio').Gpio;
+const led = new Gpio(13, {mode: Gpio.OUTPUT});
 
 const settings = {
     brightness: 0,
