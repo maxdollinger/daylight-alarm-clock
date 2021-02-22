@@ -13,7 +13,7 @@ const fade = fadingTime => {
 
 const clock = setInterval(() => {
      if (alarmDB.shouldFadingStart()){
-          console.log(`wake started: ${alarmDB.get()}`);
+          console.log(`wake up squence started: ${alarmDB.getTimeString()}`);
           fade(alarmDB.fading);}
 
 }, 5000);

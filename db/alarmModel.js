@@ -28,6 +28,10 @@ const isTimeInPast = (time) => {
     return (time - Alarm.fading) < Date.now()
 }
 
+Alarm.getTimeString = function() {
+    return (new Date(this.time)).toLocaleTimeString("de-DE");
+}
+
 Alarm.setTime = function(time) {
     if(isTimeInPast(time)) {
         time += 1000*60*60*24;
