@@ -36,7 +36,7 @@ const handler = {
                             console.log(`Brightness set to: ${brightness}`);
                             clearInterval(iv);
                         }
-                    }, 20);
+                    }, 12);
                 }
         }
 
