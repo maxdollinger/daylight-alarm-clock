@@ -2,7 +2,7 @@ const Gpio = require('pigpio').Gpio;
 const led = new Gpio(13, { mode: Gpio.OUTPUT });
 
 const settings = {
-    brightness: led.getPwmDutyCycle() || 0,
+    brightness: 0,
 };
 
 const pwmToPercent = value => Math.round(value / 255 * 100);
