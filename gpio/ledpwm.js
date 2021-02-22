@@ -1,8 +1,8 @@
 const Gpio = require('pigpio').Gpio;
-const led = new Gpio(13, {mode: Gpio.OUTPUT});
+const led = new Gpio(13, { mode: Gpio.OUTPUT });
 
 const settings = {
-    brightness: 0,
+    brightness: led.getPwmDutyCycle() || 0,
 };
 
 const pwmToPercent = value => Math.round(value / 255 * 100);
@@ -25,6 +25,7 @@ const handler = {
 
             if (changed) {
                 obj.brightness = brightness;
+                console.log(`Brightness set to: ${brightness}`);
             }
         }
 

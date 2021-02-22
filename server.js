@@ -15,5 +15,5 @@ const alarmClock = require('./wecker/wecker');
 const api = require('./router/api');
 app.use('/api', api)
 
-const port = process.env.PORT || 8000;
+const port = 80;
 app.listen(port, () => console.log(`Server startet in Port ${port}`))

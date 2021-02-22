@@ -1,24 +1,18 @@
 const alarmDB = require('../db/alarmModel');
 const led = require('../gpio/ledpwm');
 
-const fade = (minutes) => {
-     console.log('===== started fade =====');
+const fade = minutes => {
+     const iv = setInterval(() => {
+          led.brightness++;
 
-     return new Promise(resolve => {
-          const iv = setInterval(() => {
-               led.brightness++;
-
-               if (led.brightness >= 100) {
-                    clearInterval(iv);
-                    console.log('===== finished fade =====');
-                    resolve(true);
-               }
-          }, (minutes * 60 * 10))
-     })
+          if (led.brightness >= 100) {
+               clearInterval(iv);
+          }
+     }, (minutes * 600))
 }
 
 const clock = setInterval(() => {
-     if(alarmDB.shouldFadingStart()) fade(1);
+     if (alarmDB.shouldFadingStart()) fade(alarmDB.fading);
 }, 5000);
 
 module.exports = clock;
