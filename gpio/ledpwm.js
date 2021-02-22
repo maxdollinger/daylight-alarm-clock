@@ -28,7 +28,7 @@ const handler = {
             if (changed) {
                     let cB = obj.brightness;
                     const iv = setInterval(() => {
-                        cb < brightness ?  cB++ : cB--;
+                        cB < brightness ?  cB++ : cB--;
 
                         led.pwmWrite(++cB)
                         if (cB === brightness) {
@@ -39,7 +39,7 @@ const handler = {
                     }, 20);
                 }
         }
-        
+
         return changed;
     }
 }
