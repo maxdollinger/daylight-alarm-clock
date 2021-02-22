@@ -39,6 +39,7 @@ const handler = {
                     }, 20);
                 }
         }
+        
         return changed;
     }
 }
