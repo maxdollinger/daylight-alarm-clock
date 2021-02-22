@@ -26,13 +26,20 @@ const handler = {
             changed = brightness !== obj.brightness;
 
             if (changed) {
-                obj.brightness = brightness;
-                console.log(`Brightness set to: ${brightness}`);
-            }
-        }
+                    let cB = obj.brightness;
+                    const iv = setInterval(() => {
+                        cb < brightness ?  cB++ : cB--;
 
-        changed && led.pwmWrite(obj.brightness);
-        return changed
+                        led.pwmWrite(++cB)
+                        if (cB === brightness) {
+                            obj.brightness = brightness;
+                            console.log(`Brightness set to: ${brightness}`);
+                            clearInterval(iv);
+                        }
+                    }, 20);
+                }
+        }
+        return changed;
     }
 }
 
