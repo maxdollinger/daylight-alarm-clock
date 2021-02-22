@@ -17,14 +17,3 @@ app.use('/api', api)
 
 const port = 80;
 const server = app.listen(port, () => console.log(`Server startet in Port ${port}`))
-
-const led = require('./gpio/ledpwm');
-
-process.on('SIGTERM', () => {
-    console.log('Closing http server.');
-    server.close(() => {
-        console.log('Turning off light.')
-        led.brightness = 0;
-        console.log('Http server closed.');
-    });
-});
