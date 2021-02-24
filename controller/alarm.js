@@ -1,23 +1,25 @@
-const alarm = require('../db/alarmModel');
+const alarmDB = require('../db/alarmDeff');
+const { get } = require('./factory');
 
-exports.getAlarm = (req, res, next) => {
-    res.json({data: alarm.get()});
-}
+exports.getAlarm = get(alarmDB);
 
 exports.updateAlarm = (req, res, next) => {
     const {status} = req.body;
-    console.log(status);
-    if(status === 'on') alarm.on();
-    if(status === 'off') alarm.off();
+    alarmDB.status = status
     
-    console.log(`status set to: ${alarm.status}`);
-    res.status(200).json({status: 'success', data: alarm.status})
+    res.msg = `status set to: ${alarmDB.status}`;
+    res.data = alarmDB.status;
+
+    next();
 }
 
 exports.postAlarm = (req, res, next) => {
     const {time} = req.body;
-    alarm.setTime(time);
+    alarmDB.time = time;
 
-    console.log(`Alarm set to: ${(new Date(alarm.time).toString())}`);
-    res.status(200).json({status: 'success', data: alarm.time})
+    res.msg = `Alarm set to: ${alarmDB.getTimeString()}`
+    console.log(alarmDB.time);
+    res.data = alarmDB.time;
+
+    next();
 }

@@ -30,3 +30,13 @@ exports.randomHexString = (length = 16) => {
 
   return str.join("");
 }
+
+exports.routErr = fn => (req, res, next) => {
+     try {
+          fn(req, res, next);
+     } catch(err) {
+          res.msg = err.message;
+          res.data = err.stack;
+          next();
+     }
+}
