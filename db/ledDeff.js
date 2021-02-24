@@ -1,13 +1,12 @@
 const createDeffinition = require("./maxState");
+const Gpio = require('pigpio').Gpio;
+const led = new Gpio(13, { mode: Gpio.OUTPUT });
 
-// const Gpio = require('pigpio').Gpio;
-// const led = new Gpio(13, { mode: Gpio.OUTPUT });
+led.pwmWrite(0);
 
-// led.pwmWrite(0);
-
-const led = {
-    pwmWrite: val => console.log(val)
-}
+// const led = {
+//     pwmWrite: val => console.log(val)
+// }
 
 const deff = {
     brightness: {
