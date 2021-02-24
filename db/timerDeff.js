@@ -2,7 +2,7 @@ const createDeffinition = require("./maxState");
 
 const timer = {
     time: {
-        default: 30 * 60000,
+        default: 30,
     },
     startTime: {
         default: Date.now() + 30 * 60000
@@ -18,8 +18,10 @@ const timer = {
 
 const timerDeff = createDeffinition('timer', timer);
 
-timerDeff.createListener('status', (val, _, state) => val === 'on' && (state.startTime = Date.now() + state.time));
-timerDeff.createListener('time', (val, _, state) => state.status = 'on')
+timerDeff.createListener('status', (val, _, state) => val === 'on' && (state.startTime = Date.now() + state.time * 60000));
+timerDeff.createListener('time', (val, _, state) => state.status = 'on');
+timerDeff.createListener('time', (val, _, state) => state.startTime = Date.now() + val * 60000);
+
 timerDeff.createHandler('getTimeString', (val, state) => (new Date(state.startTime)).toString());
 timerDeff.createHandler('sleepTimer', (led, state) => {
     if (state.status === "on" && state.startTime <= Date.now()) {

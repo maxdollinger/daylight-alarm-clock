@@ -23,9 +23,9 @@ alarmDeff.createListener('time', (val, _, state) => state.status = 'on');
 alarmDeff.createListener('time', (time, _, state) =>{
     if (isTimeInPast(time)) {
         time += 1000 * 60 * 60 * 24;
-        time -= time % (1000 * 60);
-        state.time = time
     }
+    time -= time % (1000 * 60);
+    state.time = time;
 })
 
 alarmDeff.createHandler('getTimeString', (val, state) => (new Date(state.time)).toString());

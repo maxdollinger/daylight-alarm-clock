@@ -1,5 +1,4 @@
 const ledDB = require('../db/ledDeff');
-const { get } = require('./factory');
 const { routErr } = require('../utils/utils');
 
 exports.getLED = (req, res, next) => {

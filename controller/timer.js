@@ -6,6 +6,9 @@ exports.getTimer = get(timerDB);
 exports.updateTimer = (req, res, next) => {
     const {status} = req.body;
     timerDB.status = status;
+    console.log(`Sleep timer: ${status}`);
+    if(status === 'on')
+        console.log(`Sleep timer set to: ${(new Date(timerDB.startTime).toString())}`);
     
     res.data = timerDB.status;
     next();
@@ -14,7 +17,7 @@ exports.updateTimer = (req, res, next) => {
 exports.postTimer = (req, res, next) => {
     const {time} = req.body;
     timerDB.time = time;
-    console.log(`timerDB set to: ${(new Date(timerDB.startTime).toString())}`);
+    console.log(`Sleep timer set to: ${(new Date(timerDB.startTime).toString())}`);
     res.data =  timerDB.time;
     next();
 }
