@@ -1,7 +1,7 @@
 let Gpio;
 let pin13;
 
-if (process.argv[2] === 'prod') {
+if (process.env.NODE_ENV === 'production') {
     Gpio = require('pigpio').Gpio;
     pin13 = new Gpio(13, { mode: Gpio.OUTPUT });
 
