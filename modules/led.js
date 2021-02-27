@@ -26,13 +26,15 @@ const pwm = (val) => {
     }
     pwm > 255 && (pwm = 255);
     pwm < 0 && (pwm = 0);
+    let cPwm = data.pwm;
+    data.pwm = pwm
 
     const iv = setInterval(() => {
-        if (data.pwm === pwm) {
+        if (cPwm === pwm) {
             clearInterval(iv);
         } else {
-            pwm > data.pwm ? data.pwm++ : data.pwm--;
-            pin13.pwmWrite(data.pwm);
+            pwm > cPwm ? ++cPwm : --cPwm;
+            pin13.pwmWrite(cPwm);
         }
     }, 5);
 

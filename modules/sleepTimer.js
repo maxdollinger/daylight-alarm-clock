@@ -5,13 +5,12 @@ const data = {
     status: 'off',
 }
 
-const sleepTimer = ({led, utils}) => {
+const sleepTimer = ({led}) => {
     const setTime = time => {
         data.status = 'on';
-        time < data.fading && (time = data.fading);
+        time < 0 && (time = 0);
         time > 90*60000 && (time = 90*60000);
-        const startTime = Date.now() + time - data.fading;
-        data.startTime = startTime < Date.now() ? Date.now() : startTime;
+        data.startTime = Date.now() + time - data.fading;
         return data.time = time;
     }
     
@@ -27,15 +26,15 @@ const sleepTimer = ({led, utils}) => {
     const timer = () => {
         if (data.status === "on" && data.startTime <= Date.now()) {
             data.status = 'pending';
-            console.log(`${utils.formateTime()}: sleep squence started`);
+            console.log(`${(new Date()).toLocaleString('de-DE')} => sleep squence started`);
             const iv = setInterval(() => {
                 if(data.status === 'off') {
                     clearInterval(iv);
-                    console.log(`${utils.formateTime()}: sleep squence stoped (turned off)`);
+                    console.log(`${(new Date()).toLocaleString('de-DE')} => sleep squence stopped (turned off)`);
                 } else if (led.pwm(val => --val) === 0) {
                     clearInterval(iv);
                     data.status = 'off';
-                    console.log(`${utils.formateTime()}: sleep squence stoped (led off)`);
+                    console.log(`${(new Date()).toLocaleString('de-DE')} => sleep squence stopped (led off)`);
                 }
             }, (data.fading / 255))
     
