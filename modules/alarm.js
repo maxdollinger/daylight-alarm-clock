@@ -1,5 +1,3 @@
-const dependencies = ['led', 'utils']
-
 const data = {
     time: Date.now() + 30 * 60000,
     fading: 20*60000,
@@ -20,7 +18,7 @@ const alarm = ({led, utils}) => {
         return data.time = time;
     }
     
-    const update = () =>{
+    const toggle = () =>{
         if(data.status === 'off') {
             setTime(data.time);
             return data.status;
@@ -29,7 +27,7 @@ const alarm = ({led, utils}) => {
         }
     }
     
-    const alarmTimer = () => {
+    const timer = () => {
         if (data.status === "on" && isTimeInPast(data.time)) {
             data.status = 'pending';
             console.log(`${utils.formateTime()}: alarm squence started`);
@@ -47,25 +45,17 @@ const alarm = ({led, utils}) => {
         }
     };
     
-    const timeString = () => formateTime(data.time);
-    
     const get = () => {
         const obj = {...data};
         return Object.freeze(obj);
     }
 
     return {
-        post: ({time}) => setTime(time),
-        put: update,
         get,
-        alarmTimer,
-        timeString,
+        post: ({time}) => setTime(time),
+        put: toggle,
+        timer,
     }
 }
 
-
-
-module.exports = () => ({
-    dependencies,
-    fn: alarm,
-});
+module.exports = alarm

@@ -1,5 +1,3 @@
-const dependencies = ['led', 'utils'];
-
 const data = {
     time: 30*60000,
     startTime: Date.now(),
@@ -48,18 +46,13 @@ const sleepTimer = ({led, utils}) => {
         const obj = {...data};
         return Object.freeze(obj);
     }
-    
-    const timeString = () => formateTime(data.startTime);
 
     return {
+        get,
         post: ({time}) => setTime(time),
         put: toggle,
-        sleepTimer: timer,
-        get,
-        timeString,
+        timer,
     }
 }
 
-module.exports = () => ({
-    dependencies,
-    fn: sleepTimer });
+module.exports = sleepTimer

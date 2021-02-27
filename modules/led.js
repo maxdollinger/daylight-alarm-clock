@@ -1,13 +1,13 @@
 let Gpio;
-let led;
+let pin13;
 
 if (process.argv[2] === 'prod') {
     Gpio = require('pigpio').Gpio;
-    led = new Gpio(13, { mode: Gpio.OUTPUT });
+    pin13 = new Gpio(13, { mode: Gpio.OUTPUT });
 
-    led.pwmWrite(0);
+    pin13.pwmWrite(0);
 } else {
-    led = {
+    pin13 = {
         pwmWrite: val => console.log(val)
     }
 }
@@ -32,14 +32,14 @@ const pwm = (val) => {
             clearInterval(iv);
         } else {
             pwm > data.pwm ? data.pwm++ : data.pwm--;
-            led.pwmWrite(data.pwm);
+            pin13.pwmWrite(data.pwm);
         }
     }, 5);
 
     return Math.round(pwm/255 * 100);
 }
 
-const update = () => data.pwm === 0 ? pwm(100) : pwm(0);
+const toggle = () => data.pwm === 0 ? pwm(100) : pwm(0);
 
 const get = () => ({
     brightness: Math.round(data.pwm / 255 * 100),
@@ -47,8 +47,9 @@ const get = () => ({
 })
 
 module.exports = {
+    name: 'led',
     pwm,
-    post: ({brightness}) => pwm(brightness),
-    put: update,
     get,
+    post: ({brightness}) => pwm(brightness),
+    put: toggle,
 }
