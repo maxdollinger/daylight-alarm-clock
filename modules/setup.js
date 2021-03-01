@@ -1,6 +1,8 @@
-const setup = function ({cors, express}) {
+const setup = function (c) {
+        const {express, cors} = c;
+
         const app = express();
-        app.use(cors())
+        app.use(cors());
         app.use(express.json());
         app.use(express.urlencoded({ extended: true }));
         app.use(express.static('public'));

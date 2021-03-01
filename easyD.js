@@ -6,6 +6,7 @@ const service = (name, cb) => {
     } else {
         console.log(`=> ${name} registered`);
         container[name] = cb;
+        return true;
     }
 }
 const dependencies = (obj) => {

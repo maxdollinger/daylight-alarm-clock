@@ -16,11 +16,8 @@ const api = function ({led, sleepTimer, alarm, express}) {
 
         if (!module.hasOwnProperty(method)) next();
 
-        if (method === 'post') {
-            res.data = module[method](req.body);
-        } else {
-            res.data = module[method]();
-        }
+        module[method](req.body);
+        res.data = module.get();
 
         next();
     }

@@ -1,26 +1,19 @@
-const data = {
-    time: 30*60000,
-    startTime: Date.now(),
-    fading: 10*60000,
-    status: 'off',
-}
+const sleepTimer = ({led, store}) => {
+    const data = store.sleepTimer;
 
-const sleepTimer = ({led}) => {
     const setTime = time => {
         data.status = 'on';
         time < 0 && (time = 0);
         time > 90*60000 && (time = 90*60000);
         data.startTime = Date.now() + time - data.fading;
-        return data.time = time;
+        data.time = time;
+        return data;
     }
     
     const toggle = () =>{
-        if(data.status === 'off') {
-            setTime(data.time);
-            return data.status;
-        } else {
-            return data.status = 'off';
-        }
+        data.status === 'off' ? setTime(data.time) : data.status = 'off';
+
+        return data;
     }
     
     const timer = () => {
@@ -40,14 +33,9 @@ const sleepTimer = ({led}) => {
     
         }
     };
-    
-    const get = () => {
-        const obj = {...data};
-        return Object.freeze(obj);
-    }
 
     return {
-        get,
+        get: () => data,
         post: ({time}) => setTime(time),
         put: toggle,
         timer,
