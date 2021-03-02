@@ -1,6 +1,6 @@
 let Gpio;
 let pin13 = {
-    pwmWrite: val => console.log(val)
+    pwmWrite: val => process.stdout.write(`${val},`),
 }
 
 if (process.env.NODE_ENV === 'production') {
@@ -9,43 +9,39 @@ if (process.env.NODE_ENV === 'production') {
     pin13.pwmWrite(0);
 }
 
-const led = ({store}) => {
+const led = ({ store }) => {
 
     const data = store.led;
 
     const pwm = (val) => {
         let pwm = val instanceof Function ? val(data.pwm) : Math.round(val);
-    
+
         pwm > 255 && (pwm = 255);
         pwm < 0 && (pwm = 0);
         let cPwm = data.pwm;
         data.pwm = pwm;
-        
-        if (process.env.NODE_ENV === 'production') {
-            const iv = setInterval(() => {
-                if (cPwm === pwm) {
-                    clearInterval(iv);
-                } else {
-                    pwm > cPwm ? ++cPwm : --cPwm;
-                    pin13.pwmWrite(cPwm);
-                }
-            }, 5);
-        } else {
-            pin13.pwmWrite(pwm);
-        }
-        
+
+        const iv = setInterval(() => {
+            if (cPwm === pwm) {
+                clearInterval(iv);
+            } else {
+                pwm > cPwm ? ++cPwm : --cPwm;
+                pin13.pwmWrite(cPwm);
+            }
+        }, 5);
+
         return pwm;
     }
-    
+
     const toggle = () => {
         data.pwm === 0 ? pwm(255) : pwm(0)
         return data;
     };
-    
+
     return {
         pwm,
         get: () => data,
-        post: ({brightness}) => {
+        post: ({ brightness }) => {
             pwm(brightness);
             return data;
         },
