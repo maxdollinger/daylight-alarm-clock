@@ -5,7 +5,7 @@ const setup = function (c) {
         app.use((req, res, next) => {
                 const ip = req.connection.remoteAddress;
 
-                if (ip.includes('192.168.178') || ip === '::1') {
+                if (ip.includes('192.168.178') || ip === '::1' || ip.includes('2a02:8071:b688:e00::')) {
                         next();
                 } else {
                         console.log(`blocked ip: ${ip}`);
