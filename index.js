@@ -14,5 +14,3 @@ const http = server();
 
 //Register socket.io
 const io = c.createIo(http);
-
-

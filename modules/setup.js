@@ -7,6 +7,14 @@ const setup = function (c) {
         app.use(express.urlencoded({ extended: true }));
         app.use(express.static('public'));
 
+        app.use((req, res, next) => {
+                const ip = req.connection.remoteAddress;
+            
+                if(ip.includes('192.168.178')) next();
+            
+                res.sendStatus(403);
+            });
+
         const port = process.env.PORT || 8000;
         const server = () => app.listen(port, () => console.log(`${(new Date()).toLocaleString('de-DE')} => server startet on port ${port}`));
 
