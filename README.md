@@ -160,5 +160,6 @@ POST: expects an object with the key "time" and a value with the time in after w
 
 ## Socket.io
 Every time the data changes an event is emmited.
-emmits three events: 
-'led', 'alarm', 'sleepTimer' and sends the same data as the api endpoints on GET
+
+There are three events one for each api endpoint: 
+'led', 'alarm', 'sleepTimer' sends the same data as the api endpoints on GET
