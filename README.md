@@ -1,9 +1,13 @@
 # daylight-alarm-clock
-Raspi project to make an LED-Strip daylight alarm Clock.
+RasPi project to make an LED-Strip daylight alarm clock.
 Functions:
 - controlls led-strip. ON/OFF - dimming via pwm
 - set alarm time light will start dimming from 0% to 100% 20min befor the set alarm time
 - sleep timer turns off the light after specified time. starts dimming 10min befor the time is up.
+
+To controll the  LEDs i use a Node.JS Express REST API with a Rect App which is serverd from the same Express server.
+I also implemented an socket.io connection to display changes from other devices in realtime.
+Because of the REST API you can use any frontend you like.
 
 Used Hardware:
 - Raspberry Pi Zero W
@@ -11,11 +15,9 @@ Used Hardware:
 - Step Down Module to power the Pi 12V -> 5V
 - MosFET Modul to controll the 12V current of the Stripe.
 
-I write another guid for the electronic part soon.
- 
-To controll the  LEDs i use a Node.JS Express REST API with a Rect App which is serverd from the same Express server.
-I also implemented an socket.io connection to display changes from other devices in realtime.
-Because of the REST API you can use any frontend you like.
+## Wiring up the hardeare
+
+=> comming soon
 
 ## Set-up the RPi Zero W
 I asume you have installed Raspberry Pi OS on the Pi.
