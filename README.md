@@ -76,20 +76,21 @@ sudo pm2 list
 ```
 If there is an entrie alarm_clock with the status "online" you can controll the led-strip from any device in your network.
 
-## API function
-
-Endpoints:
+## API Endpoints
 
 #### /led
 GET: sends the current settings of the led as JSON e.g. of the key pwm has the value 0 the light is off.
 ```
 { pwm: 0 }
 ```
+
 PUT: toggles the light on/off sent data is ignored
+
 POST: expects an JSON.object with the key "brightness" and a value between 0 and 255
 ```
 { brightness: 255}
 ```
+
 #### /alarm
 GET: sends the status of the alarm-clock
 ```
@@ -100,7 +101,9 @@ GET: sends the status of the alarm-clock
     status: 'off',
 }
 ```
+
 PUT: toggles the alarm on/off
+
 POST: expects an JSON object with the key "time" and value with the alarm time in ms till the 01.01.1970 00:00:00 UTC => e.g. Date.now() in JS
 ```
 {
@@ -117,7 +120,9 @@ GET: sends the status of the sleep timer
     status: 'off',
 }
 ```
+
 PUT: toggles the alarm on/off
+
 POST: expects an JSON object with the key "time" and a value with the time in after wich the light will be off in ms.
 ```
 {
