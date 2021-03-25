@@ -92,7 +92,7 @@ GET: sends the current settings of the led as JSON e.g. of the key pwm has the v
 
 PUT: toggles the light on/off sent data is ignored
 
-POST: expects an JSON.object with the key "brightness" and a value between 0 and 255
+POST: expects an object with the key "brightness" and a value between 0 and 255
 ```
 { brightness: 255}
 ```
@@ -110,7 +110,7 @@ GET: sends the status of the alarm-clock
 
 PUT: toggles the alarm on/off
 
-POST: expects an JSON object with the key "time" and value with the alarm time in ms till the 01.01.1970 00:00:00 UTC => e.g. Date.now() in JS
+POST: expects an object with the key "time" and value with the alarm time in ms till the 01.01.1970 00:00:00 UTC => e.g. Date.now() in JS
 ```
 {
     time: 1616686969435,
@@ -129,7 +129,7 @@ GET: sends the status of the sleep timer
 
 PUT: toggles the sleep timer on/off
 
-POST: expects an JSON object with the key "time" and a value with the time in after wich the light will be off in ms.
+POST: expects an object with the key "time" and a value with the time in after wich the light will be off in ms.
 ```
 {
     time: 1800000,
