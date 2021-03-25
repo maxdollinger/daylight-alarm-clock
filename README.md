@@ -1,12 +1,12 @@
 # Daylight alarm clock
+Let there be light when you have to wake up!
 RasPi project to make an LED-Strip daylight alarm clock.
-Functions:
-- controlls led-strip. ON/OFF - dimming via pwm
-- set alarm time light will start dimming from 0% to 100% 20min befor the set alarm time
-- sleep timer turns off the light after specified time. starts dimming 10min befor the time is up.
+- Light on/off, and dimming via pwm
+- set alarm time => the light will start dimming from 0% to 100% 20min befor the alarm time.
+- sleep timer => turns the light off after specified time. Starts dimming 10min befor the time is up.
 
 To controll the  LEDs i use a Node.JS Express REST API with a Rect App which is serverd from the same Express server.
-I also implemented an socket.io connection to display changes from other devices in realtime.
+I also implemented an socket.io connection to display changes in realtime.
 Because of the REST API you can use any frontend you like.
 
 Used Hardware:
