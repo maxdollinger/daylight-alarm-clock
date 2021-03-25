@@ -130,5 +130,6 @@ POST: expects an JSON object with the key "time" and a value with the time in af
 }
 ```
 
-#### Socket.io
-emmits three events: 'led', 'alarm', 'sleepTimer' and sends the same obj as the GET Method
+## Socket.io
+emmits three events: 
+'led', 'alarm', 'sleepTimer' and sends the same data as the api endpoints on GET
