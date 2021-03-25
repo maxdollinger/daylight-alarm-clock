@@ -2,11 +2,11 @@ const sleepTimer = ({led, store}) => {
     const data = store.sleepTimer;
 
     const setTime = time => {
-        data.status = 'on';
         time < 0 && (time = 0);
         time > 90*60000 && (time = 90*60000);
         data.startTime = Date.now() + time - data.fading;
         data.time = time;
+        data.status = 'on';
         return data;
     }
     
@@ -19,7 +19,9 @@ const sleepTimer = ({led, store}) => {
     const timer = () => {
         if (data.status === "on" && data.startTime <= Date.now()) {
             data.status = 'pending';
+            
             console.log(`${(new Date()).toLocaleString('de-DE')} => sleep squence started`);
+
             const iv = setInterval(() => {
                 if(data.status === 'off') {
                     clearInterval(iv);

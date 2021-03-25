@@ -33,7 +33,7 @@ const handler = ({
 
 const c = new Proxy(container, handler)
 
-const autoLoad = (paths, c) => {
+const autoLoad = (c, paths) => {
     const load = path => {
         const dir = c.fs.opendirSync(path);
 
@@ -63,7 +63,7 @@ const autoLoad = (paths, c) => {
     }
 }
 
-module.exports = (config) => {
-    autoLoad(config, c);
-    return c;
-}
+module.exports = ({
+    autoLoad,
+    container: c,
+})

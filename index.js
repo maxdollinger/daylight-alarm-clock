@@ -1,16 +1,30 @@
-const autoLoad = require('./easyD')
-const c = autoLoad('./modules');
+const { container, autoLoad } = require('./easyD');
 
-const { app, server } = c.setup
+//pigpio mock for development
+if(process.env.NODE !== 'production') {
+    container.service('pigpio', () => ({
+        Gpio: function () {
+            return {
+                pwmWrite: val => console.log(val)
+            }
+        }
+    }));
+}
+
+//Load all modules
+autoLoad(container, './modules');
+
+//Setup ExpressServer
+const { app, server } = container.setup
 
 //Start Alarm-Clock
-const clock = c.clock;
+const clock = container.clock;
 
 //Endpoints
-app.use('/api', c.api);
+app.use('/api', container.api);
 
 //Start Express-Server
 const http = server();
 
 //Register socket.io
-const io = c.createIo(http);
+const io = container.createIo(http);

@@ -1,15 +1,7 @@
-let Gpio;
-let pin13 = {
-    pwmWrite: val => process.stdout.write(`${val},`),
-}
-
-if (process.env.NODE_ENV === 'production') {
-    Gpio = require('pigpio').Gpio;
-    pin13 = new Gpio(13, { mode: Gpio.OUTPUT });
+const led = ({ store, pigpio }) => {
+    const Gpio = pigpio.Gpio;
+    const pin13 = new Gpio(13, { mode: Gpio.OUTPUT });
     pin13.pwmWrite(0);
-}
-
-const led = ({ store }) => {
 
     const data = store.led;
 
@@ -48,6 +40,5 @@ const led = ({ store }) => {
         put: toggle,
     }
 }
-
 
 module.exports = led;

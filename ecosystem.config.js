@@ -10,6 +10,9 @@ module.exports = {
       ignore_watch: ["node_modules"],
       post_update: ["npm install", "npm install pigpio"],
       env: {
+        IPFILTER: false,
+        IPV6: "",
+        IPV4: '',
         NODE_ENV: "production",
         PORT: 80    
       }

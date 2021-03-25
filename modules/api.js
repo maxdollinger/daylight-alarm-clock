@@ -26,8 +26,7 @@ const api = function ({led, sleepTimer, alarm, express}) {
         const success = res.data !== undefined;
 
         const status = success ? 'success' : 'error';
-        const msg = success
-            ? (res.msg || `${req.method} for ${req.path} was successfull`)
+        const msg = success ? (res.msg || `${req.method} for ${req.path} was successfull`)
             : `Could not ${req.method} for ${req.path}. Sorry`;
         const data = success ? res.data : null;
 

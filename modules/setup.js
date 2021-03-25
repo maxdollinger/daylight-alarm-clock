@@ -1,11 +1,11 @@
-const setup = function (c) {
-        const { express, cors } = c;
-
+const setup = function ({ express, cors }) {
         const app = express();
-        app.use((req, res, next) => {
+
+        process.env.IPFILTER && app.use((req, res, next) => {
+                const {IPV4, IPV6} = process.env;
                 const ip = req.connection.remoteAddress;
 
-                if (ip.includes('192.168.178') || ip === '::1' || ip.includes('2a02:8071:b688:e00:')) {
+                if (ip.startsWith(IPV4) || ip === '::1' || ip.startsWith(IPV6)) {
                         next();
                 } else {
                         console.log(`blocked ip: ${ip}`);

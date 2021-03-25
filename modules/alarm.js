@@ -6,12 +6,12 @@ const alarm = ({ led, store }) => {
     }
 
     const setTime = time => {
-        data.status = 'on';
         if (isTimeInPast(time)) {
             time += 1000 * 60 * 60 * 24;
         }
         time -= time % (1000 * 60);
         data.time = time;
+        data.status = 'on';
 
         return data;
     }
@@ -25,7 +25,9 @@ const alarm = ({ led, store }) => {
     const timer = () => {
         if (data.status === "on" && isTimeInPast(data.time)) {
             data.status = 'pending';
+            
             console.log(`${(new Date()).toLocaleString('de-DE')} => alarm squence started`);
+
             const iv = setInterval(() => {
                 if (data.status === 'off') {
                     clearInterval(iv);
