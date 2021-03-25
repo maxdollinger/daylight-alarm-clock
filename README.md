@@ -79,6 +79,9 @@ sudo pm2 list
 ```
 If there is an entrie alarm_clock with the status "online" you can controll the led-strip from any device in your network.
 
+Just open your browser and type http://*(ip/hostname of the pi) If you changed the port you need to add the port at the end http://*(ip/hostname of the pi):*(Port)
+Then you should see the react web app to controll the pi.
+
 ## API Endpoints
 
 #### /led
