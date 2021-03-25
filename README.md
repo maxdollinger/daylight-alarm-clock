@@ -21,7 +21,7 @@ Used Hardware:
 => comming soon
 
 ## Set-up the RPi Zero W
-I asume you have installed Raspberry Pi OS on the Pi.
+I asume you have installed Raspberry Pi OS on the Pi. (for help go to https://www.raspberrypi.org/documentation/)
 For the following steps you need to open the terminal or login via SSH.
 
 First install git and the pigpio C library which we need to controll the Gpio Pins
