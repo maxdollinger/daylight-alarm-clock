@@ -1,13 +1,13 @@
 {
-  "name": "daylightclock",
+  "name": "daylight-alarm-clock",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node server run on an raspberry pi and to controll LEDS with pigpio and set alarms.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
-  "author": "",
+  "author": "Maximilian Dollinger",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

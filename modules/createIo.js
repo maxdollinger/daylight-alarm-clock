@@ -5,10 +5,12 @@ const createIo = ({['socket.io']: socketIo, store}) => server => {
         io.emit('led', obj)
     })
     store.alarm.subscribe((prop, value, obj) => {
-        io.emit('alarm', obj)
+        const {time, status} = obj;
+        io.emit('alarm', {time, status})
     })
     store.sleepTimer.subscribe((prop, value, obj) => {
-        io.emit('sleepTimer', obj)
+        const {time, status} = obj;
+        io.emit('sleepTimer', {time, status})
     })
 
     return io;

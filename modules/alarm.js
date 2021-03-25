@@ -43,7 +43,10 @@ const alarm = ({ led, store }) => {
     };
 
     return {
-        get: () => data,
+        get: () => ({
+            time: data.time,
+            status: data.status,
+        }),
         post: ({ time }) => setTime(time),
         put: toggle,
         timer,
