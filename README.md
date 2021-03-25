@@ -1,4 +1,4 @@
-# daylight-alarm-clock
+# Daylight alarm clock
 RasPi project to make an LED-Strip daylight alarm clock.
 Functions:
 - controlls led-strip. ON/OFF - dimming via pwm
