@@ -78,7 +78,7 @@ if all is set-up correctly you need clone the repository:
 ```
 git clone https://github.com/maxdollinger/daylight-alarm-clock.git
 ```
-now there should ne an directory "daylight-alarm-clock". To open it:
+now there should be a directory "daylight-alarm-clock". To open it:
 ```
 cd daylight-alarm-clock
 ```
