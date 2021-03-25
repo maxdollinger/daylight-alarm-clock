@@ -16,7 +16,7 @@ Used Hardware:
 - Step Down Module to power the Pi 12V -> 5V
 - MosFET Modul controll the 12V current of the Stripe.
 
-## Wiring up the hardeare
+## Wiring up the hardeware
 
 => comming soon
 
