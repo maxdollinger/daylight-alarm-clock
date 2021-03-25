@@ -29,7 +29,7 @@ First install git and the pigpio C library which we need to controll the Gpio Pi
 sudo apt-get update
 sudo apt-get install git pigpio
 ```
-Because of the older ARM Architecture (ARM 6l) we need use an unofficial build of Node.JS
+Because of the older ARM Architecture (ARM 6l) of the Pi Zero we need use an unofficial build of Node.JS
 to download Node version 15.12 use the command:
 ```
 curl -o https://unofficial-builds.nodejs.org/download/release/v15.12.0/node-v15.12.0-linux-armv6l.tar.gz
