@@ -61,7 +61,7 @@ now there should ne an directory "daylight-alarm-clock". To open it:
 cd daylight-alarm-clock
 ```
 Befor you start the server you can do a basic configuration of the server in the ecosystem.config.js.
-But you don't need to. If you set up the ip - filter and you don't know the ip's
+But you don't need to.
 ```
 PORT => set the port on which the server will be available
 IPFILTER => if set to true only allows requests from ip's which are part of the network specified at IPV4 and IPV6
