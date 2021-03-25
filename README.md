@@ -121,7 +121,7 @@ GET: sends the status of the sleep timer
 }
 ```
 
-PUT: toggles the alarm on/off
+PUT: toggles the sleep timer on/off
 
 POST: expects an JSON object with the key "time" and a value with the time in after wich the light will be off in ms.
 ```
