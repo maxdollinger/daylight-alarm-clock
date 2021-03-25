@@ -106,7 +106,7 @@ Then you should see the react web app to controll the pi.
 
 ## API Endpoints
 
-#### /led
+#### /api/led
 GET: sends the current settings of the led as JSON e.g. of the key pwm has the value 0 the light is off.
 ```
 { pwm: 0 }
@@ -119,7 +119,7 @@ POST: expects an object with the key "brightness" and a value between 0 and 255
 { brightness: 255}
 ```
 
-#### /alarm
+#### /api/alarm
 GET: sends the status of the alarm-clock
 ```
 {   
@@ -139,7 +139,7 @@ POST: expects an object with the key "time" and value with the alarm time in ms 
 }
 ```
 
-#### /sleep-timer
+#### /api/sleep-timer
 GET: sends the status of the sleep timer
 ```
 {
