@@ -24,7 +24,29 @@ Used Hardware:
 I asume you have installed Raspberry Pi OS on the Pi. (for help go to https://www.raspberrypi.org/documentation/)
 For the following steps you need to open the terminal or login via SSH.
 
-First install git and the pigpio C library which we need to controll the Gpio Pins
+If your Pi is connected via WLAN the first thing we should do is disable the wlan sleep mode.
+
+To do this permanently add
+```
+wireless-power off
+```
+to the /etc/network/interfaces file
+it should look something like this:
+
+```
+allow-hotplug wlan0
+iface wlan0 inet manual
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+wireless-power off
+
+allow-hotplug wlan1
+iface wlan1 inet manual
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+wireless-power off
+```
+
+To set-up the server on a freshly installed pi the following steps should do it.
+First install git and the pigpio C library which we need to controll the GPIO-Pins
 ```
 sudo apt-get update
 sudo apt-get install git pigpio
