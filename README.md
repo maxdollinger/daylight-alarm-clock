@@ -11,9 +11,10 @@ Because of the REST API you can use any frontend you like.
 
 Used Hardware:
 - Raspberry Pi Zero W
-- 12V white led stripe
+- 12V single color led stripe
+- 12V power brick
 - Step Down Module to power the Pi 12V -> 5V
-- MosFET Modul to controll the 12V current of the Stripe.
+- MosFET Modul controll the 12V current of the Stripe.
 
 ## Wiring up the hardeare
 
