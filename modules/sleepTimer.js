@@ -39,6 +39,7 @@ const sleepTimer = ({led, store}) => {
     return {
         get: () => ({
             time: data.time,
+            fading: data.fading,
             status: data.status
         }),
         post: ({time}) => setTime(time),
