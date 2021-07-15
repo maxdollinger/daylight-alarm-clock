@@ -14,33 +14,29 @@ module.exports = function ({ led, pigpio, store }) {
     let direction = "up";
     let doubleClick = 0;
 
-    button.on('alert', (level, tick) => {
+    button.on('alert', (level) => {
+        count = store.led.pwm;
+
         if (level === 0) {
             doubleClick += 1;
             setTimeout(() => doubleClick = 0, 500);
 
-            if (doubleClick < 2) {
-                console.log("light on");
-
-                interval = setInterval(() => {
-                    if (direction === "up") {
-                        count += 1;
-                        if (count >= 255) direction = "down";
-                    } else {
-                        count -= 1;
-                        if (count <= 1) direction = "up";
-                    }
-                    led.pwm(count);
-                }, 30);
-            } else {
+            if (doubleClick > 1) {
                 count = 0;
-                console.log("light off");
+                led.pwm(0);
+            } else {
+                interval = setInterval(() => {
+                    direction === "up" ? count += 1 : count -= 1;
+                    direction = count >= 255 ? "down" : "up";
+
+                    led.pwm(count);
+                }, 20);
             }
 
         }
+
         if (level === 1) {
             clearInterval(interval);
-            console.log(count);
         }
     });
 
