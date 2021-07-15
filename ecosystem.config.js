@@ -10,6 +10,8 @@ module.exports = {
       ignore_watch: ["node_modules"],
       post_update: ["npm install", "npm install pigpio"],
       env: {
+        LED_GPIO: 13,
+        BUTTON_GPIO: 23,
         IPFILTER: false,
         IPV6: "",
         IPV4: '',

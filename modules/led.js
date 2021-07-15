@@ -1,7 +1,7 @@
-const led = ({ store, pigpio }) => {
+module.exports = ({ store, pigpio }) => {
     const Gpio = pigpio.Gpio;
-    const pin13 = new Gpio(13, { mode: Gpio.OUTPUT });
-    pin13.pwmWrite(0);
+    const led = new Gpio(process.env.LED_GPIO, { mode: Gpio.OUTPUT });
+    led.pwmWrite(0);
 
     const data = store.led;
 
@@ -40,5 +40,3 @@ const led = ({ store, pigpio }) => {
         put: toggle,
     }
 }
-
-module.exports = led;
