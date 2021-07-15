@@ -26,7 +26,7 @@ module.exports = function ({ led, pigpio, store }) {
             } else {
                 interval = setInterval(() => {
                     countUpwards ? pwm += 1 : pwm -= 1;
-                    led.pwm(cpwm);
+                    led.pwm(pwm);
                 }, 15);
             }
 
