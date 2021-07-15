@@ -20,6 +20,9 @@ const { app, server } = container.setup
 //Start Alarm-Clock
 const clock = container.clock;
 
+//Use external push Button
+const button = container.button;
+
 //Endpoints
 app.use('/api', container.api);
 
