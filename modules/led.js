@@ -18,7 +18,7 @@ module.exports = ({ store, pigpio }) => {
                 clearInterval(iv);
             } else {
                 pwm > cPwm ? ++cPwm : --cPwm;
-                pin13.pwmWrite(cPwm);
+                led.pwmWrite(cPwm);
             }
         }, 5);
 
