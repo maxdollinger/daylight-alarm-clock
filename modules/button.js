@@ -14,7 +14,7 @@ module.exports = function ({ led, pigpio, store }) {
     let direction = "up";
     let doubleClick = 0;
 
-    button.on('alert', (level) => {
+    button.on("alert", (level) => {
         count = store.led.pwm;
 
         if (level === 0) {
@@ -26,11 +26,17 @@ module.exports = function ({ led, pigpio, store }) {
                 led.pwm(0);
             } else {
                 interval = setInterval(() => {
-                    direction === "up" ? count += 1 : count -= 1;
-                    direction = count >= 255 ? "down" : "up";
+                    if (direction === "up") {
+                        count += 1;
+                        if (count >= 255) direction = "down";
+                    }
+                    if (direction === "down") {
+                        count -= 1;
+                        if (count <= 1) direction = "up";
+                    }
 
                     led.pwm(count);
-                }, 20);
+                }, 15);
             }
 
         }
