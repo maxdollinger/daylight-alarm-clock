@@ -20,7 +20,10 @@ module.exports = function ({ led, pigpio, store }) {
 
 
         if (level === 0) {
-            if (clickCount > 0) {
+            clickCount += 1;
+            setTimeout(() => clickCount = 0, 400);
+
+            if (clickCount > 1) {
                 pwm = pwm > 0 ? 0 : 255;
                 led.pwm(pwm);
             } else {
@@ -33,9 +36,6 @@ module.exports = function ({ led, pigpio, store }) {
         }
 
         if (level === 1) {
-            clickCount += 1;
-            setTimeout(() => clickCount = 0, 400);
-
             countUpwards = !countUpwards;
 
             clearInterval(interval);
