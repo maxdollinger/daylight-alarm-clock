@@ -21,7 +21,7 @@ module.exports = function ({ led, pigpio, store }) {
 
         if (level === 0) {
             clickCount += 1;
-            setTimeout(() => clickCount = 0, 400);
+            setTimeout(() => clickCount = 0, 300);
 
             if (clickCount > 1) {
                 pwm = 0
