@@ -6,35 +6,38 @@ module.exports = function ({ led, pigpio, store }) {
         alert: true,
     });
 
-    // Level must be stable for 10 ms before an alert event is emitted.
-    button.glitchFilter(10000);
+    button.glitchFilter(5000);
 
-    let count = 0;
+    let pwm = 0;
     let interval;
-    let direction = "up";
-    let doubleClick = 0;
+    let countUpwards = true;
+    let clickCount = 0;
 
     button.on("alert", (level) => {
-        count = store.led.pwm;
+        pwm = store.led.pwm;
+        pwm === 0 && (countUpwards = true);
+        pwm === 255 && (countUpwards = false);
+
 
         if (level === 0) {
-            doubleClick += 1;
-            setTimeout(() => doubleClick = 0, 400);
-
-            if (doubleClick > 1) {
-                count = count > 0 ? 0 : 255;
-                led.pwm(count);
+            if (clickCount > 0) {
+                pwm = pwm > 0 ? 0 : 255;
+                led.pwm(pwm);
             } else {
                 interval = setInterval(() => {
-                    direction === "up" ? count += 1 : count -= 1;
-                    led.pwm(count);
+                    countUpwards ? pwm += 1 : pwm -= 1;
+                    led.pwm(cpwm);
                 }, 15);
             }
 
         }
 
         if (level === 1) {
-            direction = direction === "up" ? "down" : "up";
+            clickCount += 1;
+            setTimeout(() => clickCount = 0, 400);
+
+            countUpwards = !countUpwards;
+
             clearInterval(interval);
         }
     });
