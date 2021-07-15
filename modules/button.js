@@ -23,11 +23,11 @@ module.exports = function ({led, pigpio, store}) {
                     count -= 1;
                     if(count <= 1) direction = "up";
                 }
-                console.log(count)
             }, 100)
         }
         if(level === 1) {
             clearInterval(interval);
+            console.log(count);
         }
       });
 
