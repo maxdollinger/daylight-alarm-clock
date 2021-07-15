@@ -19,22 +19,14 @@ module.exports = function ({ led, pigpio, store }) {
 
         if (level === 0) {
             doubleClick += 1;
-            setTimeout(() => doubleClick = 0, 500);
+            setTimeout(() => doubleClick = 0, 400);
 
             if (doubleClick > 1) {
-                count = 0;
-                led.pwm(0);
+                count = count > 0 ? 0 : 255;
+                led.pwm(count);
             } else {
                 interval = setInterval(() => {
-                    if (direction === "up") {
-                        count += 1;
-                        if (count >= 255) direction = "down";
-                    }
-                    if (direction === "down") {
-                        count -= 1;
-                        if (count <= 1) direction = "up";
-                    }
-
+                    direction === "up" ? count += 1 : count -= 1;
                     led.pwm(count);
                 }, 15);
             }
@@ -42,6 +34,7 @@ module.exports = function ({ led, pigpio, store }) {
         }
 
         if (level === 1) {
+            direction = direction === "up" ? "down" : "up";
             clearInterval(interval);
         }
     });
