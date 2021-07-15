@@ -24,7 +24,7 @@ module.exports = function ({ led, pigpio, store }) {
             setTimeout(() => clickCount = 0, 400);
 
             if (clickCount > 1) {
-                pwm = pwm > 0 ? 0 : 255;
+                pwm = 0
                 led.pwm(pwm);
             } else {
                 interval = setInterval(() => {
