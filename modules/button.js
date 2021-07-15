@@ -2,17 +2,20 @@ module.exports = function ({led, pigpio, store}) {
     const Gpio = pigpio.Gpio;
     const button = new Gpio(23, {
         mode: Gpio.INPUT,
-        pullUpDown: Gpio.PUD_DOWN,
-        edge: Gpio.EITHER_EDGE
+        pullUpDown: Gpio.PUD_UP,
+        alert: true,
       });
 
-    const data = store.led;
+      let count = 0;
 
-    button.on("interupt", lvl => {
-        if(lvl === 1) {
-            console.log("Button pressed");
+      // Level must be stable for 10 ms before an alert event is emitted.
+      button.glitchFilter(10000);
+      
+      button.on('alert', (level, tick) => {
+        if (level === 0) {
+          console.log(++count);
         }
-    })
+      });
 
     return button;
 }
