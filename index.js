@@ -1,7 +1,7 @@
 const { container, autoLoad } = require('./easyD');
 
 //pigpio mock for development
-if(process.env.NODE !== 'production') {
+if(process.env.NODE_ENV !== 'production') {
     container.service('pigpio', () => ({
         Gpio: function () {
             return {
