@@ -18,7 +18,6 @@ module.exports = function ({ led, pigpio, store }) {
         pwm === 0 && (countUpwards = true);
         pwm === 255 && (countUpwards = false);
 
-
         if (level === 0) {
             clickCount += 1;
 
@@ -29,12 +28,12 @@ module.exports = function ({ led, pigpio, store }) {
                         led.pwm(pwm);
                     }, 15);
                 }
+
                 clickCount = 0;
-            }, 300);
+            }, 250);
 
             if (clickCount === 2) {
-                pwm = pwm === 0 ? 255 : 0;
-                led.pwm(pwm);
+                led.pwm(pwm > 0 ? 0 : 255);
             }
         }
 
