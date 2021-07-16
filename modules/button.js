@@ -21,18 +21,21 @@ module.exports = function ({ led, pigpio, store }) {
 
         if (level === 0) {
             clickCount += 1;
-            setTimeout(() => clickCount = 0, 300);
 
-            if (clickCount > 1) {
-                pwm = 0
+            setTimeout(() => {
+                if (clickCount === 1) {
+                    interval = setInterval(() => {
+                        countUpwards ? pwm += 1 : pwm -= 1;
+                        led.pwm(pwm);
+                    }, 15);
+                }
+                clickCount = 0;
+            }, 300);
+
+            if (clickCount === 2) {
+                pwm = pwm === 0 ? 255 : 0;
                 led.pwm(pwm);
-            } else {
-                interval = setInterval(() => {
-                    countUpwards ? pwm += 1 : pwm -= 1;
-                    led.pwm(pwm);
-                }, 15);
             }
-
         }
 
         if (level === 1) {
