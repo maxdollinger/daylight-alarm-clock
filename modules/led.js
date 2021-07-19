@@ -15,8 +15,10 @@ module.exports = ({ store: { led }, pigpio }) => {
     })
 
     const pwm = val => {
-        val = Number(val) ?? led.pwm;
-
+        val < 0 && (val = 0);
+        val > 255 && (val = 255);
+        val = Math.round(val);
+        
         const iv = setInterval(() => {
             if (led.pwm === val) {
                 clearInterval(iv);
