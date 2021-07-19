@@ -4,26 +4,24 @@ module.exports = ({ store, pigpio }) => {
     led.pwmWrite(0);
 
     store.led.subscribe((prop, value, obj) => {
-        console.log(prop, value, obj);
-
         if (prop === "pwm") {
-            value > 255 && (value = 255);
-            value < 0 && (value = 0);
-
-            const iv = setInterval(() => {
-                if (value === obj[prop]) {
-                    clearInterval(iv);
-                } else {
-                    value > obj[prop] ? obj[prop] += 1 : obj[prop] -= 1;
-                    led.pwmWrite(obj[prop]);
-                }
-            }, 5);
+            led.pwmWrite(value);
         }
     })
 
     const pwm = (val) => {
-        const pwm = val instanceof Function ? val(data.pwm) : Math.round(val);
-        store.led.pwm = pwm;
+        let pwm = val instanceof Function ? val(store.led.pwm) : Math.round(val);
+
+        pwm > 255 && (pwm = 255);
+        pwm < 0 && (pwm = 0);
+
+        const iv = setInterval(() => {
+            if (store.led.pwm === pwm) {
+                clearInterval(iv);
+            } else {
+                store.led.pwm < pwm ? store.led.pwm += 1 : store.led.pwm -= 1;
+            }
+        }, 5);
     }
 
     const toggle = () => {
