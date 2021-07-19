@@ -1,14 +1,14 @@
 module.exports = ({ store: { led }, pigpio }) => {
     const Gpio = pigpio.Gpio;
-    const { pwmWrite } = new Gpio(process.env.LED_GPIO, { mode: Gpio.OUTPUT });
-    pwmWrite(0);
+    const ledControll = new Gpio(process.env.LED_GPIO, { mode: Gpio.OUTPUT });
+    ledControll.pwmWrite(0);
 
-    led.subscribe(({ prop, obj }) => prop === "pwm" && pwmWrite(obj[prop]));
+    led.subscribe(({ prop, obj }) => prop === "pwm" && ledControll.pwmWrite(obj[prop]));
     led.register(({ current: pwm, prop }) => {
         if (prop === "pwm") {
             pwm > 255 && (pwm = 255);
             pwm < 0 && (pwm = 0);
-            
+
             return pwm;
         }
     })
