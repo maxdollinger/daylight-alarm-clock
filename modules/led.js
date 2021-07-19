@@ -3,8 +3,7 @@ module.exports = ({ store, pigpio }) => {
     const led = new Gpio(process.env.LED_GPIO, { mode: Gpio.OUTPUT });
     led.pwmWrite(0);
 
-    const data = store.led;
-    data.subscribe((prop, value, obj) => {
+    store.led.subscribe.subscribe((prop, value, obj) => {
         if (prop === "pwm") {
             value > 255 && (value = 255);
             value < 0 && (value = 0);
@@ -22,12 +21,12 @@ module.exports = ({ store, pigpio }) => {
 
     const pwm = (val) => {
         const pwm = val instanceof Function ? val(data.pwm) : Math.round(val);
-        data.pwm = pwm;
+        store.led.pwm = pwm;
     }
 
     const toggle = () => {
-        data.pwm === 0 ? pwm(255) : pwm(0)
-        return data;
+        store.led.pwm === 0 ? pwm(255) : pwm(0)
+        return store.led;
     };
 
     return {
