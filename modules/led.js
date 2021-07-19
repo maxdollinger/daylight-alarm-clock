@@ -4,8 +4,8 @@ module.exports = ({ store, pigpio }) => {
     led.pwmWrite(0);
 
     store.led.subscribe((prop, value, obj) => {
-        console.log(prop, value);
-        
+        console.log(prop, value, obj);
+
         if (prop === "pwm") {
             value > 255 && (value = 255);
             value < 0 && (value = 0);
