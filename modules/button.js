@@ -16,11 +16,11 @@ module.exports = function ({ led, pigpio, store }) {
 
     button.on("alert", (level) => {
         pwm = store.led.pwm;
-        pwm === 0 && (countUpwards = true);
-        pwm === 255 && (countUpwards = false);
 
         if (level === 0) {
             clickCount += 1;
+            pwm === 0 && (countUpwards = true);
+            pwm === 255 && (countUpwards = false);
 
             timeout = setTimeout(() => {
                 if (clickCount === 1) {
