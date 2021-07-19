@@ -4,6 +4,8 @@ module.exports = ({ store, pigpio }) => {
     led.pwmWrite(0);
 
     store.led.subscribe((prop, value, obj) => {
+        console.log(prop, value);
+        
         if (prop === "pwm") {
             value > 255 && (value = 255);
             value < 0 && (value = 0);
@@ -31,10 +33,10 @@ module.exports = ({ store, pigpio }) => {
 
     return {
         pwm,
-        get: () => data,
+        get: () => store.led,
         post: ({ brightness }) => {
             pwm(brightness);
-            return data;
+            return store.led;
         },
         put: toggle,
     }
