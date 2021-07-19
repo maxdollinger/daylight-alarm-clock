@@ -1,6 +1,7 @@
-const alarm = ({ led, store }) => {
+const alarm = ({ store }) => {
     const data = store.alarm;
-    
+    const led = store.led;
+
     const isTimeInPast = (time) => {
         return (time - data.fading) < Date.now()
     }
@@ -25,15 +26,15 @@ const alarm = ({ led, store }) => {
     const timer = () => {
         if (data.status === "on" && isTimeInPast(data.time)) {
             data.status = 'pending';
-            
+
             console.log(`${(new Date()).toLocaleString('de-DE')} => alarm squence started`);
 
             const iv = setInterval(() => {
                 if (data.status === 'off') {
                     clearInterval(iv);
-                    led.pwm(0);
+                    led.pwm = 0;
                     console.log(`${(new Date()).toLocaleString('de-DE')} => alarm squence stopped (turned off)`);
-                } else if (led.pwm(val => ++val) === 255) {
+                } else if ((led.pwm += 1) === 255) {
                     clearInterval(iv);
                     data.status = 'off';
                     console.log(`${(new Date()).toLocaleString('de-DE')} => alarm squence stopped (led 100%)`);

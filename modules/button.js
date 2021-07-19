@@ -1,4 +1,4 @@
-module.exports = function ({ pigpio, store: { led } }) {
+module.exports = function ({ pigpio, store: { led }, led: { put } }) {
     const Gpio = pigpio.Gpio;
     const button = new Gpio(process.env.BUTTON_GPIO, {
         mode: Gpio.INPUT,
@@ -28,7 +28,7 @@ module.exports = function ({ pigpio, store: { led } }) {
                 clickCount = 0;
             }, 300);
 
-            clickCount >= 2 && (led.pwm = led.pwm > 0 ? 0 : 255);
+            clickCount >= 2 && put();
         }
 
         if (level === 1) {
