@@ -5,7 +5,7 @@ module.exports = ({ store, pigpio }) => {
 
     store.led.subscribe((prop, value, obj) => {
         if (prop === "pwm") {
-            led.pwmWrite(value);
+            led.pwmWrite(obj[prop]);
         }
     })
 

@@ -8,24 +8,22 @@ module.exports = function ({ pigpio, store }) {
 
     button.glitchFilter(10000);
 
-    let pwm = 0;
     let countUpwards = true;
     let clickCount = 0;
     let timeout;
     let interval;
 
     button.on("alert", (level) => {
-        pwm = store.led.pwm;
+        store.led.pwm === 0 && (countUpwards = true);
+        store.led.pwm === 255 && (countUpwards = false);
 
         if (level === 0) {
             clickCount += 1;
-            pwm === 0 && (countUpwards = true);
-            pwm === 255 && (countUpwards = false);
 
             timeout = setTimeout(() => {
                 if (clickCount === 1) {
                     interval = setInterval(() => {
-                        store.led.pwm = countUpwards ? pwm += 1 : pwm -= 1;
+                        countUpwards ? store.led.pwm += 1 : store.led.pwm -= 1;
                     }, 15);
                 }
 
@@ -36,13 +34,14 @@ module.exports = function ({ pigpio, store }) {
                 clearTimeout(timeout);
                 clickCount = 0;
 
-                store.led.pwm = pwm > 0 ? 0 : 255;
+                store.led.pwm = store.led.pwm > 0 ? 0 : 255;
             }
         }
 
         if (level === 1) {
             countUpwards = !countUpwards;
 
+            clearTimeout(timeout);
             clearInterval(interval);
         }
     });
