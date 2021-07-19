@@ -16,12 +16,12 @@ const data = {
 }
 
 const listener = {
-    alarm: {},
-    sleepTimer: {},
-    led: {},
+    alarm: [],
+    sleepTimer: [],
+    led: [],
 };
 
-const createListener = slice => cb => listener[slice] = cb;
+const createListener = slice => cb => listener[slice].push(cb);
 
 const handler = slice => ({
     get: (obj, prop) => {
@@ -33,7 +33,7 @@ const handler = slice => ({
     set: (obj, prop, value) => {
         if(obj[prop] !== value) {
             obj[prop] = value;
-            listener[slice](prop, value, obj);
+            listener[slice].forEach( cb => cb(prop, value, obj));
         }
 
     }

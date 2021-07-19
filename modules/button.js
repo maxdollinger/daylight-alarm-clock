@@ -1,4 +1,4 @@
-module.exports = function ({ led, pigpio, store }) {
+module.exports = function ({ pigpio, store }) {
     const Gpio = pigpio.Gpio;
     const button = new Gpio(process.env.BUTTON_GPIO, {
         mode: Gpio.INPUT,
@@ -8,14 +8,15 @@ module.exports = function ({ led, pigpio, store }) {
 
     button.glitchFilter(10000);
 
+    const led = store.led;
     let pwm = 0;
-    let interval;
     let countUpwards = true;
     let clickCount = 0;
     let timeout;
+    let interval;
 
     button.on("alert", (level) => {
-        pwm = store.led.pwm;
+        pwm = led.pwm;
 
         if (level === 0) {
             clickCount += 1;
@@ -25,8 +26,7 @@ module.exports = function ({ led, pigpio, store }) {
             timeout = setTimeout(() => {
                 if (clickCount === 1) {
                     interval = setInterval(() => {
-                        countUpwards ? pwm += 1 : (pwm = pwm < 10 ? 10 : pwm -= 1)
-                        led.pwm(pwm);
+                        led.pwm = countUpwards ? pwm += 1 : pwm -= 1;
                     }, 15);
                 }
 
@@ -34,14 +34,16 @@ module.exports = function ({ led, pigpio, store }) {
             }, 250);
 
             if (clickCount === 2) {
-                led.pwm(pwm > 0 ? 0 : 255);
+                clearTimeout(timeout);
+                clickCount = 0;
+
+                led.pwm = pwm > 0 ? 0 : 255;
             }
         }
 
         if (level === 1) {
             countUpwards = !countUpwards;
 
-            clearTimeout(timeout);
             clearInterval(interval);
         }
     });
