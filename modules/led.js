@@ -9,11 +9,16 @@ module.exports = ({ store, pigpio }) => {
         }
     })
 
-    const pwm = (val) => {
-        let pwm = val instanceof Function ? val(store.led.pwm) : Math.round(val);
+    store.led.register(({ current: pwm, prop }) => {
+        if (prop === "pwm") {
+            pwm > 255 && (pwm = 255);
+            pwm < 0 && (pwm = 0);
+            return pwm;
+        }
+    })
 
-        pwm > 255 && (pwm = 255);
-        pwm < 0 && (pwm = 0);
+    const pwm = (val) => {
+        const pwm = val instanceof Function ? val(store.led.pwm) : Math.round(val);
 
         const iv = setInterval(() => {
             if (store.led.pwm === pwm) {
@@ -21,21 +26,21 @@ module.exports = ({ store, pigpio }) => {
             } else {
                 store.led.pwm < pwm ? store.led.pwm += 1 : store.led.pwm -= 1;
             }
-        }, 5);
+        }, 4);
+
+        return store.led;
     }
 
     const toggle = () => {
         store.led.pwm === 0 ? pwm(255) : pwm(0)
+
         return store.led;
     };
 
     return {
         pwm,
         get: () => store.led,
-        post: ({ brightness }) => {
-            pwm(brightness);
-            return store.led;
-        },
+        post: ({ brightness }) => pwm(brightness),
         put: toggle,
     }
 }

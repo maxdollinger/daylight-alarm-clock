@@ -30,9 +30,9 @@ module.exports = function ({ pigpio, store }) {
                 }
 
                 clickCount = 0;
-            }, 250);
+            }, 300);
 
-            if (clickCount === 2) {
+            if (clickCount >= 2) {
                 clearTimeout(timeout);
                 clickCount = 0;
 

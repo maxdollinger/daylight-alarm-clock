@@ -21,21 +21,33 @@ const listener = {
     led: [],
 };
 
+const middleWare = {
+    alarm: [],
+    sleepTimer: [],
+    led: [],
+}
+
 const createListener = slice => cb => listener[slice].push(cb);
+const registerMiddleWare = slice => cb => middleWare[slice].push(cb);
 
 const handler = slice => ({
     get: (obj, prop) => {
         if(prop === 'subscribe') {
             return createListener(slice)
         }
+        if(prop === "register") {
+            return registerMiddleWare(slice)
+        }
+
         return obj[prop]
     },
     set: (obj, prop, value) => {
         if(obj[prop] !== value) {
-            obj[prop] = value;
+            let current = value;
+            middleWare[slice].forEach( cb => current = cb({prop, value, current, obj}));
+            obj[prop] = current ?? value;
             listener[slice].forEach( cb => cb(prop, value, obj));
         }
-
     }
 });
 
