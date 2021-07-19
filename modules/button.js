@@ -6,12 +6,13 @@ module.exports = function ({ led, pigpio, store }) {
         alert: true,
     });
 
-    button.glitchFilter(5000);
+    button.glitchFilter(10000);
 
     let pwm = 0;
     let interval;
     let countUpwards = true;
     let clickCount = 0;
+    let timeout;
 
     button.on("alert", (level) => {
         pwm = store.led.pwm;
@@ -21,7 +22,7 @@ module.exports = function ({ led, pigpio, store }) {
         if (level === 0) {
             clickCount += 1;
 
-            setTimeout(() => {
+            timeout = setTimeout(() => {
                 if (clickCount === 1) {
                     interval = setInterval(() => {
                         countUpwards ? pwm += 1 : (pwm = pwm < 10 ? 10 : pwm -= 1)
@@ -40,6 +41,7 @@ module.exports = function ({ led, pigpio, store }) {
         if (level === 1) {
             countUpwards = !countUpwards;
 
+            clearTimeout(timeout);
             clearInterval(interval);
         }
     });
