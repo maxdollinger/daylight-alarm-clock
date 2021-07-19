@@ -4,9 +4,8 @@ module.exports = ({ store: { led }, pigpio }) => {
     ledControll.pwmWrite(led.pwm);
 
     led.subscribe(({ prop, obj }) => prop === "pwm" && ledControll.pwmWrite(obj[prop]));
-    led.register(({ current: pwm, prop }) => {
+    led.use(({ current: pwm, prop }) => {
         if (prop === "pwm") {
-            pwm = Math.round(pwm);
             pwm > 255 && (pwm = 255);
             pwm < 0 && (pwm = 0);
         }
@@ -18,7 +17,7 @@ module.exports = ({ store: { led }, pigpio }) => {
         val < 0 && (val = 0);
         val > 255 && (val = 255);
         val = Math.round(val);
-        
+
         const iv = setInterval(() => {
             if (led.pwm === val) {
                 clearInterval(iv);

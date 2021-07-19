@@ -28,15 +28,15 @@ const middleWare = {
 }
 
 const createListener = slice => cb => listener[slice].push(cb);
-const registerMiddleWare = slice => cb => middleWare[slice].push(cb);
+const use = slice => cb => middleWare[slice].push(cb);
 
 const handler = slice => ({
     get: (obj, prop) => {
         if(prop === 'subscribe') {
             return createListener(slice)
         }
-        if(prop === "register") {
-            return registerMiddleWare(slice)
+        if(prop === "use") {
+            return use(slice)
         }
 
         return obj[prop]
@@ -46,7 +46,7 @@ const handler = slice => ({
             let current = value;
             middleWare[slice].forEach( cb => current = cb({prop, value, current, obj}));
             obj[prop] = current ?? value;
-            listener[slice].forEach( cb => cb({prop, value, obj}));
+            listener[slice].forEach( cb => cb({prop, value: current, obj}));
         }
     }
 });
