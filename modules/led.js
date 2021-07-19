@@ -1,45 +1,41 @@
-module.exports = ({ store, pigpio }) => {
+module.exports = ({ store: { led }, pigpio }) => {
     const Gpio = pigpio.Gpio;
-    const led = new Gpio(process.env.LED_GPIO, { mode: Gpio.OUTPUT });
-    led.pwmWrite(0);
+    const { pwmWrite } = new Gpio(process.env.LED_GPIO, { mode: Gpio.OUTPUT });
+    pwmWrite(0);
 
-    store.led.subscribe((prop, value, obj) => {
-        if (prop === "pwm") {
-            led.pwmWrite(obj[prop]);
-        }
-    })
-
-    store.led.register(({ current: pwm, prop }) => {
+    led.subscribe(({ prop, obj }) => prop === "pwm" && pwmWrite(obj[prop]));
+    led.register(({ current: pwm, prop }) => {
         if (prop === "pwm") {
             pwm > 255 && (pwm = 255);
             pwm < 0 && (pwm = 0);
+            
             return pwm;
         }
     })
 
     const pwm = (val) => {
-        const pwm = val instanceof Function ? val(store.led.pwm) : Math.round(val);
+        const pwm = val instanceof Function ? val(led.pwm) : Math.round(val);
 
         const iv = setInterval(() => {
-            if (store.led.pwm === pwm) {
+            if (led.pwm === pwm) {
                 clearInterval(iv);
             } else {
-                store.led.pwm < pwm ? store.led.pwm += 1 : store.led.pwm -= 1;
+                led.pwm < pwm ? led.pwm += 1 : led.pwm -= 1;
             }
         }, 4);
 
-        return store.led;
+        return led;
     }
 
     const toggle = () => {
-        store.led.pwm === 0 ? pwm(255) : pwm(0)
+        led.pwm === 0 ? pwm(255) : pwm(0)
 
-        return store.led;
+        return led;
     };
 
     return {
         pwm,
-        get: () => store.led,
+        get: () => led,
         post: ({ brightness }) => pwm(brightness),
         put: toggle,
     }
