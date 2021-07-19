@@ -3,7 +3,7 @@ module.exports = ({ store, pigpio }) => {
     const led = new Gpio(process.env.LED_GPIO, { mode: Gpio.OUTPUT });
     led.pwmWrite(0);
 
-    store.led.subscribe.subscribe((prop, value, obj) => {
+    store.led.subscribe((prop, value, obj) => {
         if (prop === "pwm") {
             value > 255 && (value = 255);
             value < 0 && (value = 0);
