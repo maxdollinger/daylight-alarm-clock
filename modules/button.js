@@ -1,4 +1,4 @@
-module.exports = function ({ pigpio, store: { led }, led }) {
+module.exports = function ({ pigpio, store: { led }}) {
     const Gpio = pigpio.Gpio;
     const button = new Gpio(process.env.BUTTON_GPIO, {
         mode: Gpio.INPUT,
