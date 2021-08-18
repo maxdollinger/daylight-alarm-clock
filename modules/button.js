@@ -20,7 +20,7 @@ module.exports = function ({ pigpio, store: { led } }) {
             interval = setInterval(() => countUpwards ? led.pwm += 1 : led.pwm -= 1, 15);
 
             clickCount += 1;
-            setTimeout(() => clickCount = 0, 350);
+            setTimeout(() => clickCount = 0, 450);
         };
 
         if (level === 1) {
